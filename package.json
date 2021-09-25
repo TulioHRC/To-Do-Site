@@ -1,0 +1,25 @@
+{
+  "name": "to-do-site",
+  "version": "0.0.0",
+  "description": "a todo list site",
+  "main": "app.js",
+  "scripts": {
+    "test": "node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TulioHRC/To-Do-Site.git"
+  },
+  "keywords": [
+    "to-do"
+  ],
+  "author": "Tulio",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/TulioHRC/To-Do-Site/issues"
+  },
+  "homepage": "https://github.com/TulioHRC/To-Do-Site#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
