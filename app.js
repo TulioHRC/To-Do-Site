@@ -1,4 +1,4 @@
-const express = express()
+const express = require('express')
 const controllerTodo = require('./controllers/todo.js')
 const PORT = 3000
 

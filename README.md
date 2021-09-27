@@ -14,4 +14,5 @@ I need an application that save to-do lists for me, and it can't be Notion, beca
 ### 0.0.2 ()
 
 ### 0.0.1 (Organizing project)
-Created the folders and some commands in "app.js".
+- Created the folders and some commands in "app.js".
+- Basic app (working online) with html and running code
