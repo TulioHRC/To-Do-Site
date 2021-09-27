@@ -1,6 +1,6 @@
 const express = require('express')
 const controllerTodo = require('./controllers/todo.js')
-const PORT = 3000
+const PORT = process.env.PORT || 3000
 
 let app = express()
 
