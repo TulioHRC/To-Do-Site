@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
 const bodyParser = require('body-parser')
+const ip = require('ip')
 
 // Mongo Connection
 
@@ -11,7 +12,7 @@ mongoose.connect(mongoString, {useNewUrlParser: true, useUnifiedTopology: true})
 let mongoSchema = new mongoose.Schema({
   ip: String, // Get you your own to-do list
   to_do: String,
-  did: Boolean, // If you did that to-do, 1 or 0
+  did: {type: Boolean, default: false}, // If you did that to-do, 1 or 0
 })
 
 let To_dos = mongoose.model('ToDoModel', mongoSchema) // Connects to the collection, remembering that in MongoDB will be all in lowercase and with a "s" in the final of the name
@@ -24,9 +25,34 @@ let urlencodedParser = bodyParser.urlencoded({extended:false})
 
 module.exports = function(app){
   app.get('/', (req, res)=>{
-    res.render('index')
+    To_dos.find({ip: ip.address()}, (err, data)=>{ // {} is to define as a Json File
+        if (err) console.log(err)
+        else res.render('index', {data: data})
+    })
   })
+
   app.post('/todoSave', urlencodedParser, (req, res)=>{
-    console.log(req.body)
+    let NewData = new To_dos({ip: ip.address(), to_do: req.body.to_do})
+    To_dos.find({ip: ip.address(), to_do: req.body.to_do}, (err, data)=>{
+      if(data.length >= 1){
+        console.log('This to_do item is already used in your ip!')
+        res.redirect('/')
+      } else {
+        NewData.save((err, data) => {
+          if(err){
+            console.log(`An error has happened ${err}.`)
+            res.redirect('/')
+          } else {
+            console.log(`Saved, ${data}`)
+            res.redirect('/') // Reload
+          }
+        })
+      }
+    })
   })
+/*
+  app.post('/todoDelete', urlencodedParser, (req, res)=>{
+
+  })
+*/
 }

@@ -9,6 +9,11 @@
     <form action="/todoSave" method="post">
       <input type="text" name="to_do" value="">
       <button type="submit" name="button">Create</button>
+      <ul class="todos">
+        <% for(let i=0; i < data.length; i++){ %>
+          <li><%= data[i].to_do %></li>
+        <% } %>
+      </ul>
     </form>
   </body>
 </html>

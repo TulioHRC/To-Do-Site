@@ -11,6 +11,10 @@ I need an application that save to-do lists for me, and it can't be Notion, beca
 
 ## Log
 
+### 0.0.3 (Mongo saving and viewing)
+- Created the way to save new to-dos
+- Created the way to see the to-dos by your ip
+
 ### 0.0.2 (MongoDB)
 - Created Mongo database
 - Connected to the mongo collection
