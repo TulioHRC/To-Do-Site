@@ -11,7 +11,9 @@ I need an application that save to-do lists for me, and it can't be Notion, beca
 
 ## Log
 
-### 0.0.2 ()
+### 0.0.2 (MongoDB)
+- Created Mongo database
+- Connected to the mongo collection
 
 ### 0.0.1 (Organizing project)
 - Created the folders and some commands in "app.js".
