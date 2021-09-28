@@ -50,9 +50,17 @@ module.exports = function(app){
       }
     })
   })
-/*
-  app.post('/todoDelete', urlencodedParser, (req, res)=>{
 
+  app.post('/todoDelete/:todo', (req, res)=>{
+    To_dos.find({ip: ip.address(), to_do: req.params.todo.replace(":", "")}).deleteOne((err, data)=>{
+      if(err){
+        console.log(err)
+        res.redirect('/')
+      } else {
+        console.log(data)
+        res.redirect('/')
+      }
+    })
   })
-*/
+
 }
