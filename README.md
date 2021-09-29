@@ -11,6 +11,9 @@ I need an application that save to-do lists for me, and it can't be Notion, beca
 
 ## Log
 
+### 0.3.1 (Checkbox)
+- Created checkbox for each to-do
+
 ### 0.3 (Basic Version)
 - Created the way to delete to-dos
 

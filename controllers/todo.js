@@ -43,7 +43,7 @@ module.exports = function(app){
             console.log(`An error has happened ${err}.`)
             res.redirect('/')
           } else {
-            console.log(`Saved, ${data}`)
+            //console.log(`Saved, ${data}`)
             res.redirect('/') // Reload
           }
         })
@@ -57,9 +57,17 @@ module.exports = function(app){
         console.log(err)
         res.redirect('/')
       } else {
-        console.log(data)
+        //console.log(data)
         res.redirect('/')
       }
+    })
+  })
+
+  app.post('/todoUpdate/:data', (req, res)=>{
+    data = req.params.data.replace(':', "").split('-')
+    To_dos.findOneAndUpdate({ip: ip.address(), to_do: data[0]}, {ip: ip.address(), to_do:data[0], did:data[1]}, {upsert: true}, function(err, data) {
+      if (err) console.log(err)
+      // else console.log(data)
     })
   })
 

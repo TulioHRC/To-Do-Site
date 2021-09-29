@@ -13,6 +13,9 @@
     </form>
     <ul class="todos">
       <% for(let i=0; i < data.length; i++){ %>
+        <input type="checkbox" class="check" <% if(data[i].did == "1"){ %>
+          <%= "checked" %>
+        <% } %>>
         <li><%= data[i].to_do %></li>
         <button type="button" class="delete">Delete</button>
       <% } %>
