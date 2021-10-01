@@ -1,6 +1,7 @@
 const mongoose = require('mongoose')
 const bodyParser = require('body-parser')
-const ip = require('ip')
+//const ip = require('ip')
+const requestIp = require('request-ip')
 
 // Mongo Connection
 
@@ -25,15 +26,15 @@ let urlencodedParser = bodyParser.urlencoded({extended:false})
 
 module.exports = function(app){
   app.get('/', (req, res)=>{
-    To_dos.find({ip: ip.address()}, (err, data)=>{ // {} is to define as a Json File
+    To_dos.find({ip: requestIp.getClientIp(req)}, (err, data)=>{ // {} is to define as a Json File
         if (err) console.log(err)
         else res.render('index', {data: data})
     })
   })
 
   app.post('/todoSave', urlencodedParser, (req, res)=>{
-    let NewData = new To_dos({ip: ip.address(), to_do: req.body.to_do})
-    To_dos.find({ip: ip.address(), to_do: req.body.to_do}, (err, data)=>{
+    let NewData = new To_dos({ip: requestIp.getClientIp(req), to_do: req.body.to_do})
+    To_dos.find({ip: requestIp.getClientIp(req), to_do: req.body.to_do}, (err, data)=>{
       if(data.length >= 1){
         console.log('This to_do item is already used in your ip!')
         res.redirect('/')
@@ -52,7 +53,7 @@ module.exports = function(app){
   })
 
   app.post('/todoDelete/:todo', (req, res)=>{
-    To_dos.find({ip: ip.address(), to_do: req.params.todo.replace(":", "")}).deleteOne((err, data)=>{
+    To_dos.find({ip: requestIp.getClientIp(req), to_do: req.params.todo.replace(":", "")}).deleteOne((err, data)=>{
       if(err){
         console.log(err)
         res.redirect('/')
@@ -65,7 +66,7 @@ module.exports = function(app){
 
   app.post('/todoUpdate/:data', (req, res)=>{
     data = req.params.data.replace(':', "").split('-')
-    To_dos.findOneAndUpdate({ip: ip.address(), to_do: data[0]}, {ip: ip.address(), to_do:data[0], did:data[1]}, {upsert: true}, function(err, data) {
+    To_dos.findOneAndUpdate({ip: requestIp.getClientIp(req), to_do: data[0]}, {ip: requestIp.getClientIp(req), to_do:data[0], did:data[1]}, {upsert: true}, function(err, data) {
       if (err) console.log(err)
       // else console.log(data)
     })
