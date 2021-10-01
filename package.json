@@ -22,7 +22,6 @@
   "dependencies": {
     "ejs": "^3.1.6",
     "express": "^4.17.1",
-    "ip": "^1.1.5",
     "mongoose": "^6.0.8",
     "request-ip": "^2.1.3"
   }

@@ -1,6 +1,5 @@
 const mongoose = require('mongoose')
 const bodyParser = require('body-parser')
-//const ip = require('ip')
 const requestIp = require('request-ip')
 
 // Mongo Connection
