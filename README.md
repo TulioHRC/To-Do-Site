@@ -14,6 +14,7 @@ I need an application that save to-do lists for me, and it can't be Notion, beca
 ### 0.4 (Basic CSS)
 - Basic CSS for cellphone
 - Line Through in checked to-dos
+![image](https://user-images.githubusercontent.com/62257920/135699204-db90a43f-d895-43e5-ae07-33ce63f04b60.png)
 
 ### 0.3.3 (Fixed update did)
 - Fixed update did error
