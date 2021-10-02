@@ -1,0 +1,76 @@
+body {
+  background-color: whitesmoke; /* Less bright white, to not hurt people's eyes */
+}
+
+.wrapper {
+  background-color: cornflowerblue;
+  color: white;
+  position: absolute;
+  left: 0%;
+  width: 84%;
+  min-height: 100%;
+  padding: 5% 8%;
+}
+
+h1 {
+  font-family: 'Impact';
+  font-size: 208px;
+  text-align: center;
+  text-shadow: 6px 5px 9px rgba(0,0,0,0.75);
+}
+
+.to-do-form {
+  text-align: center;
+  margin: 45px 0px;
+}
+
+.to-do-form input {
+  font-family: 'Times New Roman';
+  font-size: 50px;
+  text-align: center;
+  padding: 12px 8px;
+  margin-right: 10px;
+  border-radius: 10px;
+  border: 1px black;
+  -webkit-box-shadow: 5px 6px 12px -6px #000000;
+  box-shadow: 5px 6px 12px -6px #000000;
+  top: 0px;
+  margin-top: 0px;
+}
+
+#bt {
+  background-color: limegreen;
+  font-size: 50px;
+  color: white;
+  padding: 12px 30px;
+  cursor: pointer;
+}
+
+.todos {
+  list-style-type: none;
+}
+
+.todos li {
+  margin-bottom: 35px;
+}
+
+.todos li label {
+  font-family: 'Times New Roman';
+  font-size: 64px;
+}
+
+.todos c {
+  cursor: pointer;
+  margin-left: 25px;
+}
+
+.todos button {
+  background-color: red;
+  color: white;
+  font-size: 50px;
+  cursor: pointer;
+  padding: 2px 15px;
+  border: 0;
+  border-radius: 10px;
+  float: right;
+}

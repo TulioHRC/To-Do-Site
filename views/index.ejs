@@ -4,22 +4,47 @@
     <meta charset="utf-8">
     <title>To-Do</title>
     <link rel="icon" href="/assets/icon.ico">
+    <link rel="stylesheet" href="/assets/reseting.css">
+    <link rel="stylesheet" href="/assets/checkbox.css">
+    <link rel="stylesheet" href="/assets/style.css">
   </head>
   <body>
-    <h1>To-Do app</h1>
-    <form action="/todoSave" method="post">
-      <input type="text" name="to_do" value="">
-      <button type="submit" name="button">Create</button>
-    </form>
-    <ul class="todos">
-      <% for(let i=0; i < data.length; i++){ %>
-        <input type="checkbox" class="check" <% if(data[i].did == "1"){ %>
-          <%= "checked" %>
-        <% } %>>
-        <li><%= data[i].to_do %></li>
-        <button type="button" class="delete">Delete</button>
-      <% } %>
-    </ul>
+    <div class="wrapper">
+
+      <h1>To Do</h1>
+
+      <div class="to-do-form">
+        <form action="/todoSave" method="post">
+          <input type="text" id="new" name="to_do" placeholder="Enter new To Do">
+          <input type="submit" id="bt" name="button" value="&#43;">
+        </form>
+      </div>
+
+      <div class="to-do-items">
+        <ul class="todos">
+          <% for(let i=0; i < data.length; i++){ %>
+            <li>
+              <label class="control control-checkbox">
+                    <input type="checkbox" class="check" <% if(data[i].did == "1"){ %>
+                      <%= "checked" %>
+                    <% } %>>
+                    <c><%= data[i].to_do %></c>
+                  <div class="control_indicator"></div>
+                  <button type="button" class="delete">&#10005;</button>
+              </label>
+              <!--
+              <input type="checkbox" class="check" <% if(data[i].did == "1"){ %>
+                <%= "checked" %>
+              <% } %>>
+              --->
+
+
+            </li>
+          <% } %>
+        </ul>
+      </div>
+
+    </div>
 
     <script src="/assets/script.js"></script>
   </body>

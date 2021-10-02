@@ -11,8 +11,15 @@ I need an application that save to-do lists for me, and it can't be Notion, beca
 
 ## Log
 
+### 0.4 (Basic CSS)
+- Basic CSS for cellphone
+- Line Through in checked to-dos
+
+### 0.3.3 (Fixed update did)
+- Fixed update did error
+
 ### 0.3.2 (IP fix)
-- Fixxed ip error
+- Fixed ip error
 
 ### 0.3.1 (Checkbox)
 - Created checkbox for each to-do

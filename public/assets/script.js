@@ -1,25 +1,42 @@
-let lis = document.getElementsByTagName('li')
+let todos = document.getElementsByTagName('c')
 let buts = document.getElementsByClassName('delete')
 let checks = document.getElementsByClassName('check')
+let lis = document.getElementsByTagName('li')
 
-for(let i=0; i<lis.length; i++){
+function save(i, initial=false){
+  if(initial == false){
+    if(checks[i].checked == false){
+      checks[i].checked = true
+      todos[i].style['text-decoration'] = 'line-through'
+    } else {
+      checks[i].checked = false
+      todos[i].style['text-decoration'] = 'none'
+    }
+
+
+    fetch(`/todoUpdate/:${todos[i].textContent}-${checks[i].checked}`, {
+      method: 'POST',
+      body: ''
+    })
+  } else {
+    if(checks[i].checked == false){
+      todos[i].style['text-decoration'] = 'none'
+    } else {
+      todos[i].style['text-decoration'] = 'line-through'
+    }
+  }
+}
+
+for(let i=0; i<todos.length; i++){
   buts[i].addEventListener('click', ()=>{
-      fetch(`/todoDelete/:${lis[i].textContent}`, {
+      fetch(`/todoDelete/:${todos[i].textContent}`, {
           method: 'POST',
           body:  ''
       })
       document.location.reload(true);
     })
-    checks[i].addEventListener('click', () => {
-      if(checks[i].value == "0" || checks[i].value == "on"){
-        checks[i].value = "1"
-      } else {
-        checks[i].value = "0"
-      }
+    todos[i].addEventListener('click', () => save(i))
+    checks[i].addEventListener('click', () => save(i))
 
-      fetch(`/todoUpdate/:${lis[i].textContent}-${checks[i].value}`, {
-        method: 'POST',
-        body: ''
-      })
-    })
+    save(i, true) // Line-Through initial
   }
