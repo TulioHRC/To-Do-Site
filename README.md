@@ -11,6 +11,11 @@ I need an application that save to-do lists for me, and it can't be Notion, beca
 
 ## Log
 
+### 0.4.1 (Fixing some things)
+- Fix update in checkbox click
+- Fix initial line-through in checked to-dos
+- Merged three styles css files into just one, to make the app faster
+
 ### 0.4 (Basic CSS)
 - Basic CSS for cellphone
 - Line Through in checked to-dos

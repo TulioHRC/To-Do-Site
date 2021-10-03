@@ -4,9 +4,7 @@
     <meta charset="utf-8">
     <title>To-Do</title>
     <link rel="icon" href="/assets/icon.ico">
-    <link rel="stylesheet" href="/assets/reseting.css">
-    <link rel="stylesheet" href="/assets/checkbox.css">
-    <link rel="stylesheet" href="/assets/style.css">
+    <link rel="stylesheet" href="/assets/fullCSS.css">
   </head>
   <body>
     <div class="wrapper">
@@ -27,7 +25,8 @@
               <label class="control control-checkbox">
                     <input type="checkbox" class="check" <% if(data[i].did == "1"){ %>
                       <%= "checked" %>
-                    <% } %>>
+                      <% } %>>
+
                     <c><%= data[i].to_do %></c>
                   <div class="control_indicator"></div>
                   <button type="button" class="delete">&#10005;</button>
