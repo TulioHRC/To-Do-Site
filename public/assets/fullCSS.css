@@ -307,3 +307,9 @@ h1 {
   border-radius: 10px;
   float: right;
 }
+
+#new:invalid {
+  padding: 4px 3px;
+  border: red 5px solid;
+  background-color: #ffb8ad;
+}

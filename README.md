@@ -11,6 +11,9 @@ I need an application that save to-do lists for me, and it can't be Notion, beca
 
 ## Log
 
+### 0.4.2 (Minimum size)
+- To do name minimum size in input
+
 ### 0.4.1 (Fixing some things)
 - Fix update in checkbox click
 - Fix initial line-through in checked to-dos
