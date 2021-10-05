@@ -11,6 +11,10 @@ I need an application that save to-do lists for me, and it can't be Notion, beca
 
 ## Log
 
+### 0.5 (Responsive CSS and HTML)
+- Created the tablet css
+- And the PC css
+
 ### 0.4.2 (Minimum size)
 - To do name minimum size in input
 

@@ -243,6 +243,8 @@ body {
   width: 84%;
   min-height: 100%;
   padding: 5% 8%;
+  -webkit-box-shadow: 5px 6px 12px -6px #000000;
+  box-shadow: 5px 6px 12px -6px #000000;
 }
 
 h1 {
@@ -312,4 +314,74 @@ h1 {
   padding: 4px 3px;
   border: red 5px solid;
   background-color: #ffb8ad;
+}
+
+/*
+
+
+Responsive CSS
+
+
+*/
+
+@media only screen and (min-width:768px) { /* Tablet */
+	h1 {
+    font-size: 150px;
+  }
+  .to-do-form input {
+    font-size: 42px;
+  }
+  #bt {
+    font-size: 42px;
+  }
+}
+
+@media only screen and (min-width:1000px) { /* PC */
+  .wrapper {
+    left: 10%;
+    width: 74%;
+    padding: 1% 3%;
+  }
+  h1 {
+    font-size: 84px;
+  }
+  .to-do-form {
+    margin: 20px 0;
+  }
+  .to-do-form input {
+    font-size: 28px;
+  }
+  #bt {
+    font-size: 28px;
+  }
+  .todos li {
+    margin-bottom: 10px;
+  }
+
+  .todos li label {
+    font-size: 24px;
+  }
+
+  .todos button {
+    font-size: 24px;
+    padding: 1px 8px;
+  }
+/* Checkbox part */
+  .control {
+      padding-left: 15px;
+      margin-bottom: 5px;
+      font-size: 15px;
+  }
+  .control_indicator {
+      height: 25px;
+      width: 25px;
+      margin-top: 4px;
+  }
+  .control-checkbox .control_indicator:after {
+      left: 8.5px;
+      top: 5px;
+      width: 4.5px;
+      height: 9px;
+      border-width: 0 4px 4px 0;
+  }
 }
