@@ -14,6 +14,8 @@ I need an application that save to-do lists for me, and it can't be Notion, beca
 ### 0.5 (Responsive CSS and HTML)
 - Created the tablet css
 - And the PC css
+![image](https://user-images.githubusercontent.com/62257920/136080192-34d252d2-cc62-4993-ad0b-24c2b90ebb06.png)
+
 
 ### 0.4.2 (Minimum size)
 - To do name minimum size in input
