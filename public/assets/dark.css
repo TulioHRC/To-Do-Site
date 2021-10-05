@@ -1,0 +1,8 @@
+body {
+  background-color: black;
+}
+.wrapper {
+  background-color: midnightblue;
+  -webkit-box-shadow: 5px 6px 12px -6px white;
+  box-shadow: 5px 6px 12px -6px white;
+}
