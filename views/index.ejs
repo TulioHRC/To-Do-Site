@@ -11,6 +11,12 @@
 
       <h1>To Do</h1>
 
+      <label class="switch">
+        <input type="checkbox" id="slider">
+        <span class="slider round"></span>
+        <p class="description">&#9788;/&#9790;</p>
+      </label>
+
       <div class="to-do-form">
         <form action="/todoSave" method="post">
           <input type="text" id="new" name="to_do" minlength="3" placeholder="Enter new To Do">
@@ -31,13 +37,6 @@
                   <div class="control_indicator"></div>
                   <button type="button" class="delete">&#10005;</button>
               </label>
-              <!--
-              <input type="checkbox" class="check" <% if(data[i].did == "1"){ %>
-                <%= "checked" %>
-              <% } %>>
-              --->
-
-
             </li>
           <% } %>
         </ul>
