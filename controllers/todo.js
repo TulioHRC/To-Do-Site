@@ -1,6 +1,6 @@
-const mongoose = require('mongoose')
 const bodyParser = require('body-parser')
 const requestIp = require('request-ip')
+const mongoose = require('mongoose')
 
 // Mongo Connection
 
@@ -25,6 +25,7 @@ let urlencodedParser = bodyParser.urlencoded({extended:false})
 
 module.exports = function(app){
   app.get('/', (req, res)=>{
+    console.log(req.connection.id)
     To_dos.find({ip: requestIp.getClientIp(req)}, (err, data)=>{ // {} is to define as a Json File
         if (err) console.log(err)
         else res.render('index', {data: data})
@@ -68,7 +69,6 @@ module.exports = function(app){
     To_dos.findOneAndUpdate({ip: requestIp.getClientIp(req), to_do: data[0]}, {ip: requestIp.getClientIp(req), to_do:data[0], did:data[1]}, {upsert: true}, function(err, data) {
       if (err) console.log(err)
       // else console.log(data)
+      })
     })
-  })
-
 }
