@@ -18,6 +18,11 @@ Saving the accounts in MongoDB, saving the TO DOs also in MongoDB and saving the
 
 ## Log
 
+### v0.5.2 (Basic Login)
+- Changed some things in the switch theme mode
+- Created basic html of login system
+- Basic cookie reading and saving (just logged cookie)
+
 ### v0.5.1 (Themes modes)
 - Created dark mode
 

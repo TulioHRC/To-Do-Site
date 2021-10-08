@@ -7,7 +7,7 @@ const mongoose = require('mongoose')
 const mongoString = 'mongodb+srv://Jocker:Xn4M4GLE1Omy2Rbq@grovecluster.kna71.mongodb.net/GroveCluster?retryWrites=true&w=majority'
 mongoose.connect(mongoString, {useNewUrlParser: true, useUnifiedTopology: true})
 
-//mongoose.models = {} // Creating database collection
+// mongoose.models = {} // Creating database collection
 
 let mongoSchema = new mongoose.Schema({
   ip: String, // Get you your own to-do list
@@ -25,10 +25,17 @@ let urlencodedParser = bodyParser.urlencoded({extended:false})
 
 module.exports = function(app){
   app.get('/', (req, res)=>{
-    console.log(req.connection.id)
+    if(!req.cookies['user']){
+      logged = 0
+
+      res.cookie('logged', '0', {
+        httpOnly: true, // Can't the user change
+      })
+    } else logged = 1
+
     To_dos.find({ip: requestIp.getClientIp(req)}, (err, data)=>{ // {} is to define as a Json File
         if (err) console.log(err)
-        else res.render('index', {data: data})
+        else res.render('index', {data: data, logged: logged})
     })
   })
 
