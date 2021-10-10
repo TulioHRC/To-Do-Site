@@ -19,6 +19,8 @@
       --->
       <% if(logged == 0){ %>
         <p><%= 'Not logged' %></p>
+      <% } else { %>
+        <p><%= 'Logged into ' + user %></p>
       <% } %>
 
       <h1>To Do</h1>

@@ -18,6 +18,10 @@ Saving the accounts in MongoDB, saving the TO DOs also in MongoDB and saving the
 
 ## Log
 
+### v0.5.3 (Login system working)
+- Created the register's functions and the login's functions
+- Basic saving in the cookies
+
 ### v0.5.2 (Basic Login)
 - Changed some things in the switch theme mode
 - Created basic html of login system

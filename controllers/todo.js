@@ -27,15 +27,19 @@ module.exports = function(app){
   app.get('/', (req, res)=>{
     if(!req.cookies['user']){
       logged = 0
+      user = ''
 
       res.cookie('logged', '0', {
         httpOnly: true, // Can't the user change
       })
-    } else logged = 1
+    } else {
+      logged = 1
+      user = req.cookies['user']
+    }
 
     To_dos.find({ip: requestIp.getClientIp(req)}, (err, data)=>{ // {} is to define as a Json File
         if (err) console.log(err)
-        else res.render('index', {data: data, logged: logged})
+        else res.render('index', {data: data, logged: logged, user: user})
     })
   })
 
