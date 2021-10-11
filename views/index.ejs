@@ -8,15 +8,9 @@
   </head>
   <body>
     <div class="wrapper">
-      <form action="/login" method="post">
-        <button>Log in</button>
+      <form id="login" action="/login" method="post">
+        <button id="logBt">Log in</button>
       </form>
-      <!--
-        <a href="/login"> if switching the text according to the cookie:
-          if the user is already logged -> Log out, switching action to logout
-          if the user is not logged -> Log in
-        </a>
-      --->
       <% if(logged == 0){ %>
         <p><%= 'Not logged' %></p>
       <% } else { %>
@@ -59,6 +53,15 @@
     </div>
 
     <script src="/assets/script.js"></script>
+    <script type="text/javascript">
+      if(<%= logged %>){ // If the client is already logged
+        console.log('Logged')
+        document.getElementById('login').action = '/logout'
+        document.getElementById('logBt').textContent = 'Log out'
+      } else {
+        console.log('Not Logged')
+      }
+    </script>
     <!--
       If not logged, there will be a script, to change the elements functions to be related to the cache
     -->

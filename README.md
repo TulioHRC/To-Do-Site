@@ -11,12 +11,17 @@ I need an application that save to-do lists for me, and it can't be Notion, beca
 
 ## Future Releases (news)
 
-### The new saving method (v0.6)
-As IP is not working like we want, we'll create a new saving method.
-Using a login system (sign in and sign up), and using cookies to keep the client logged in.
-Saving the accounts in MongoDB, saving the TO DOs also in MongoDB and saving the preferences in cache (localStorage).
+### Pop ups (v0.7)
+To tell users to create an account, the benefits (a little bit faster, and keep the data safier)
 
 ## Log
+
+### v0.6 (New saving method)
+- Removed email of accounts (to avoid usefull data to hackers)
+- Added log out feature
+- Reconfigured the mongoDB collections (with ID and some others things)
+- Saving without account method (cache)
+- Full adaption to without account method (delete, save, etc.)
 
 ### v0.5.3 (Login system working)
 - Created the register's functions and the login's functions
