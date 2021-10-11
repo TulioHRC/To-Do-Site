@@ -24,7 +24,8 @@ for(let i=0; i<todos.length; i++){
           method: 'POST',
           body:  ''
       })
-      document.location.reload(true);
+
+      document.location.reload(true)
     })
 
     if(checks[i].checked == true){ // Initial line-through
@@ -36,21 +37,9 @@ for(let i=0; i<todos.length; i++){
 // Themes
 
 document.getElementById('slider').addEventListener('click', () => {
-  if(document.getElementById('slider').checked == true){
-    localStorage.setItem('theme', 'dark')
-  } else {
-    localStorage.setItem('theme', 'light')
-  }
-  document.location.reload(true)
+  fetch(`/theme/:${document.getElementById('slider').checked}`, {
+      method: 'POST',
+      body:  ''
+  })
+  document.location.reload(true) // Reloading page after the cookie switch
 })
-
-if(localStorage.getItem('theme') == 'dark'){ // Dark css load
-  document.getElementById('slider').checked = true // pre-checking
-
-  let link = document.createElement('link')
-  link.rel = 'stylesheet'
-  link.type = 'text/css'
-  link.href = '/assets/dark.css'
-
-  document.getElementsByTagName('HEAD')[0].appendChild(link)
-}

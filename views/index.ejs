@@ -4,7 +4,11 @@
     <meta charset="utf-8">
     <title>To-Do</title>
     <link rel="icon" href="/assets/icon.ico">
-    <link rel="stylesheet" href="/assets/fullCSS.css">
+    <link rel="stylesheet" href=<% if(theme == "true"){ %>
+      <%= "/assets/dark.css"  %>
+    <% } else { %>
+      <%= "/assets/fullCSS.css"  %>
+    <% } %>>
   </head>
   <body>
     <div class="wrapper">
@@ -20,7 +24,9 @@
       <h1>To Do</h1>
 
       <label class="switch">
-        <input type="checkbox" id="slider">
+        <input type="checkbox" id="slider" <% if(theme == "true"){ %>
+          <%= "checked" %>
+          <% } %>>
         <span class="slider round"></span>
         <p class="description">&#9788;/&#9790;</p>
       </label>
@@ -55,15 +61,9 @@
     <script src="/assets/script.js"></script>
     <script type="text/javascript">
       if(<%= logged %>){ // If the client is already logged
-        console.log('Logged')
         document.getElementById('login').action = '/logout'
         document.getElementById('logBt').textContent = 'Log out'
-      } else {
-        console.log('Not Logged')
       }
     </script>
-    <!--
-      If not logged, there will be a script, to change the elements functions to be related to the cache
-    -->
   </body>
 </html>

@@ -35,6 +35,8 @@ let urlencodedParser = bodyParser.urlencoded({extended:false})
 
 module.exports = function(app){
   app.get('/', (req, res)=>{
+    // User Checking
+
     if(!req.cookies['user']){ // Without account mode
       logged = 0
       user = ''
@@ -52,8 +54,6 @@ module.exports = function(app){
         }
       }
 
-      console.log(data)
-
       res.cookie('logged', '0', {
         httpOnly: true, // Can't the user change
       })
@@ -61,7 +61,14 @@ module.exports = function(app){
         httpOnly: true, // Can't the user change
       })
 
-      res.render('index', {data: data, logged: logged, user: user})
+      // Theme Loading
+
+      let theme = 'false'
+      if(req.cookies['theme'] != undefined){ // Theme cookie if not defined
+        theme = req.cookies['theme']
+      }
+
+      res.render('index', {data: data, logged: logged, user: user, theme: theme})
     } else {
       logged = 1
       user = req.cookies['user']
@@ -142,7 +149,6 @@ module.exports = function(app){
           else data[1] = 0
           each[1] = data[1]
           cookie[i] = each.join('/')
-          console.log(cookie.join(';').concat(';'))
           res.cookie('todos', cookie.join(';').concat(';'), {
             httpOnly: true,
           })
@@ -154,5 +160,11 @@ module.exports = function(app){
         if (err) console.log(err)
       })
     }
+  })
+
+  app.post('/theme/:data', (req, res) => { // Changing theme
+    data = req.params.data.replace(':', '')
+    res.cookie('theme', data)
+    res.redirect('/')
   })
 }
