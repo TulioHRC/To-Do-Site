@@ -11,8 +11,16 @@ I need an application that save to-do lists for me, and it can't be Notion, beca
 
 ## Future Releases (news)
 
+### Related erros during tests
+- CSS dark theme loading is slow (first the app reads the light css, and then the site is light for a few time)
+- Login and Register errors isn't doing anything after console.log
+
 ### Pop ups (v0.7)
 To tell users to create an account, the benefits (a little bit faster, and keep the data safier)
+
+### Optimize code (v0.8)
+Faster and prettier code, to make the site faster, and the code prettier.
+Putting commentaries and deleting useless code.
 
 ## Log
 
