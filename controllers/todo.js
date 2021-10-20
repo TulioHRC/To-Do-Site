@@ -74,23 +74,26 @@ module.exports = function(app){
       user = req.cookies['user']
 
       To_dos.find({user: req.cookies['user']}, (err, data)=>{
-          if (err) console.log(err)
+          if (err) res.redirect(`/error/:${err}`)
           else res.render('index', {data: data, logged: logged, user: user})
       })
     }
   })
 
   app.post('/todoSave', urlencodedParser, (req, res)=>{
+      if(req.body.to_do == '') console.log('There was an error') // Put a popup after
+
     if(req.cookies['user']){
       let NewData = new To_dos({user: req.cookies['user'], to_do: req.body.to_do})
       To_dos.find({user: req.cookies['user'], to_do: req.body.to_do}, (err, data)=>{
+        if (err) res.redirect(`/error/:${err}`)
         if(data.length >= 1){
           console.log('This to_do item is already used in your ip!')
           res.redirect('/')
         } else {
           NewData.save((err, data) => {
             if(err){
-              console.log(`An error has happened ${err}.`)
+              res.redirect(`/error/:${err}`)
             }
             res.redirect('/') // Reload
           })
@@ -131,7 +134,7 @@ module.exports = function(app){
     } else {
       To_dos.find({user: req.cookies['user'], to_do: req.params.todo.replace(":", "")}).deleteOne((err, data)=>{
         if(err){
-          console.log(err)
+          res.redirect(`/error/:${err}`)
         }
         res.redirect('/')
       })
@@ -164,7 +167,7 @@ module.exports = function(app){
 
   app.post('/theme/:data', (req, res) => { // Changing theme
     data = req.params.data.replace(':', '')
-    res.cookie('theme', data)
+    res.cookie('theme', data, {httpOnly: true})
     res.redirect('/')
   })
 }

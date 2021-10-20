@@ -59,7 +59,7 @@ module.exports = function(app){
         })
         res.redirect('/')
       } else {
-        console.log('Error in login.')
+        res.redirect(`/error/:Error in login ${err}`)
       }
     })
   })
@@ -70,6 +70,7 @@ module.exports = function(app){
 
   app.post('/register/signup', urlencodedParser, (req, res) => {
       Accounts.find({username: req.body['user']}, (err, data) => {
+        if(err) res.redirect(`/error/:${err}`)
         if(data.length >= 1){
           console.log('This username is already being used.')
           res.redirect('/register')
@@ -102,7 +103,7 @@ module.exports = function(app){
                     }
                   })
                 } else {
-                  console.log(`Errin: ${err}`)
+                  res.redirect(`/error/:Error in deleting ${err}`)
                 }
               })
             }

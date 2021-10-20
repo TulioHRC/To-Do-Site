@@ -41,5 +41,13 @@ document.getElementById('slider').addEventListener('click', () => {
       method: 'POST',
       body:  ''
   })
-  document.location.reload(true) // Reloading page after the cookie switch
+
+  // sleep time expects milliseconds
+  function sleep (time) {
+    return new Promise((resolve) => setTimeout(resolve, time));
+  }
+
+  sleep(100).then(() => {
+      document.location.reload(true) // Reloading page after the cookie switch and waiting 100 milisseconds to avoid errors
+  });
 })

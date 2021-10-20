@@ -23,6 +23,12 @@ Putting commentaries and deleting useless code.
 
 ## Log
 
+### v0.6.2 (Theme changing fix)
+- Fix theme changing error
+- Fixed error in input of to dos (0 chars accepted)
+- Error page
+- Pop up to create account
+
 ### v0.6.1 (Minor errors fix)
 - Text position in PC
 - Smaller font-size to phones and a little for PCs too
