@@ -45,7 +45,14 @@ module.exports = function(app){
   })
 
   app.post('/login', (req, res) => {
-    res.render('login')
+    // Theme Loading
+
+    let theme = 'false'
+    if(req.cookies['theme'] != undefined){ // Theme cookie if not defined
+      theme = req.cookies['theme']
+    }
+
+    res.render('login', {theme: theme})
   })
 
   app.post('/login/enter', urlencodedParser, (req, res) => {
@@ -65,7 +72,14 @@ module.exports = function(app){
   })
 
   app.post('/register', (req, res) => {
-    res.render('register')
+    // Theme Loading
+
+    let theme = 'false'
+    if(req.cookies['theme'] != undefined){ // Theme cookie if not defined
+      theme = req.cookies['theme']
+    }
+
+    res.render('register', {theme: theme})
   })
 
   app.post('/register/signup', urlencodedParser, (req, res) => {

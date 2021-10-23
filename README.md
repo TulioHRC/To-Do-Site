@@ -20,8 +20,13 @@ To tell users to create an account, the benefits (a little bit faster, and keep 
 ### Optimize code (v0.8)
 Faster and prettier code, to make the site faster, and the code prettier.
 Putting commentaries and deleting useless code.
+And full system style
 
 ## Log
+
+### v0.6.3 (Login system style)
+- System style (slideshow only with example photos)
+- Login error corrected
 
 ### v0.6.2 (Theme changing fix)
 - Fix theme changing error

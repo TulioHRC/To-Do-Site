@@ -73,9 +73,16 @@ module.exports = function(app){
       logged = 1
       user = req.cookies['user']
 
+      // Theme Loading
+
+      let theme = 'false'
+      if(req.cookies['theme'] != undefined){ // Theme cookie if not defined
+        theme = req.cookies['theme']
+      }
+
       To_dos.find({user: req.cookies['user']}, (err, data)=>{
           if (err) res.redirect(`/error/:${err}`)
-          else res.render('index', {data: data, logged: logged, user: user})
+          else res.render('index', {data: data, logged: logged, user: user, theme: theme})
       })
     }
   })

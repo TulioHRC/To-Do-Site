@@ -112,8 +112,10 @@ from: https://www.w3schools.com/howto/howto_js_popup.asp
 /* Popup container */
 .popup {
   position: absolute;
-  top: 10%;
-  left: 18%;
+  font-size: 60px;
+  bottom: 15%;
+  left: 25%;
+  width: 64%;
   display: inline-block;
   cursor: pointer;
 }
@@ -122,16 +124,15 @@ from: https://www.w3schools.com/howto/howto_js_popup.asp
 .popup .popuptext {
   font-family: fantasy;
   visibility: hidden;
-  width: 160px;
+  width: 100%;
   background-color: #f6f7a3;
   color: black;
   text-align: center;
-  border-radius: 12px;
-  padding: 8px 6px;
+  border-radius: 20px;
+  padding: 12px 9px;
   position: absolute;
   z-index: 1;
   bottom: 125%;
-  left: 50%;
   margin-left: -80px;
 }
 
@@ -378,6 +379,28 @@ body {
   box-shadow: 5px 6px 12px -6px #000000;
 }
 
+#logBt {
+  font-family: arial;
+  font-size: 28px;
+  position: absolute;
+  left: 6%;
+  top: 2%;
+  width: 15%;
+  height: 4%;
+  background-color: lightgray;
+  border: 0;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+#welcome {
+  position: absolute;
+  left: 5%;
+  top: 7%;
+  font-size: 28px;
+  width: 20%;
+}
+
 h1 {
   font-family: 'Impact';
   font-size: 208px;
@@ -517,6 +540,7 @@ Responsive CSS
       border-width: 0 4px 4px 0;
   }
 }
+
 
 /*        DARK PART              */
 

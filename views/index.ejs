@@ -15,14 +15,12 @@
       <form id="login" action="/login" method="post">
         <button id="logBt">Log in</button>
       </form>
-      <% if(logged == 0){ %>
-        <p><%= 'Not logged' %></p>
-      <% } else { %>
-        <p><%= 'Logged into ' + user %></p>
+      <% if(logged == 1){ %>
+        <p id="welcome"><%= 'Hi ' + user + '!' %></p>
       <% } %>
 
       <div class="popup">
-        <span class="popuptext" id="myPopup">We recommend you to create an account or log in, to have a better experience.</span>
+        <span class="popuptext" id="myPopup">You're not logged, so the experience can be a little bit worse. Just click on me to hide.</span>
       </div>
 
       <h1>To Do</h1>
@@ -67,10 +65,12 @@
       if(<%= logged %>){ // If the client is already logged
         document.getElementById('login').action = '/logout'
         document.getElementById('logBt').textContent = 'Log out'
+        document.getElementById('logBt').style.backgroundColor = 'indianred'
       } else {
         // Pop Up configuration
         var popup = document.getElementById("myPopup");
         popup.classList.toggle("show");
+
         popup.addEventListener('click', () => {
           popup.classList.toggle("show"); // Hide popup
         })
