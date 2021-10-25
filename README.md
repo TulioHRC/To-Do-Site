@@ -9,20 +9,11 @@ I need an application that save to-do lists for me, and it can't be Notion, beca
 - Fast
 - Can be used in PC and cellphone
 
-## Future Releases (news)
-
-### Related erros during tests
-- Login and Register errors isn't doing anything after console.log
-
-### Pop ups (v0.7)
-To tell users to create an account, the benefits (a little bit faster, and keep the data safier)
-
-### Optimize code (v0.8)
-Faster and prettier code, to make the site faster, and the code prettier.
-Putting commentaries and deleting useless code.
-And full system style
-
 ## Log
+
+### v0.7 (Complete login system style)
+- Proper images for slideshow (Just basic photos, that can improve a lot in the future)
+- Responsive css update
 
 ### v0.6.3 (Login system style)
 - System style (slideshow only with example photos)
