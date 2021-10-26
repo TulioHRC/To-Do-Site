@@ -15,6 +15,7 @@ I need an application that save to-do lists for me, and it can't be Notion, beca
 - Fix theme changing error (não está funcionando no deploy, talvez mudar a forma, só carregando o css do tema e não recarregando pagina)
 - Log out button css fix
 - Better home page css (less things in the screen)
+- Cell switch description
 
 ### v0.7 (Complete login system style)
 - Proper images for slideshow (Just basic photos, that can improve a lot in the future)

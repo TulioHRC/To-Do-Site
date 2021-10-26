@@ -499,8 +499,11 @@ Responsive CSS
   }
   #logBt {
     font-size: 28px;
-    width: 10%;
+    width: 12%;
     height: 6%;
+  }
+  #welcome {
+    top: 9%;
   }
   h1 {
     font-size: 84px;
