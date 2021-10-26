@@ -168,9 +168,9 @@ Switch button style
   position: absolute;
   display: inline-block;
   top: 2%;
-  right: 4%;
-  width: 100px;
-  height: 52px;
+  right: 3%;
+  width: 150px;
+  height: 78px;
 }
 
 /* Hide default HTML checkbox */
@@ -196,10 +196,10 @@ Switch button style
 .slider:before {
   position: absolute;
   content: "";
-  height: 36px;
-  width: 36px;
-  left: 8px;
-  bottom: 8px;
+  height: 54px;
+  width: 54px;
+  left: 12px;
+  bottom: 12px;
   background-color: white;
   -webkit-transition: .4s;
   transition: .4s;
@@ -214,14 +214,14 @@ input:focus + .slider {
 }
 
 input:checked + .slider:before {
-  -webkit-transform: translateX(42px);
-  -ms-transform: translateX(42px);
-  transform: translateX(42px);
+  -webkit-transform: translateX(63px);
+  -ms-transform: translateX(63px);
+  transform: translateX(63px);
 }
 
 /* Rounded sliders */
 .slider.round {
-  border-radius: 52px;
+  border-radius: 78px;
 }
 
 .slider.round:before {
@@ -229,8 +229,9 @@ input:checked + .slider:before {
 }
 
 .description {
-  font-size: 52px;
-  margin: 45px 2px;
+  text-align: center;
+  font-size: 42px;
+  margin: 80px 0px;
 }
 
 /*
@@ -526,6 +527,28 @@ Responsive CSS
     padding: 1px 8px;
     border-radius: 10px;
   }
+  /* Switch */
+  .switch {
+    right: 4%;
+    width: 100px;
+    height: 52px;
+  }
+  .slider:before {
+    height: 36px;
+    width: 36px;
+    left: 8px;
+    bottom: 8px;
+  }
+  input:checked + .slider:before {
+    -webkit-transform: translateX(42px);
+    -ms-transform: translateX(42px);
+    transform: translateX(42px);
+  }
+  .description {
+    font-size: 46px;
+    margin: 45px 2px;
+  }
+
 /* Checkbox part */
   .control {
       padding-left: 15px;
