@@ -47,7 +47,7 @@ document.getElementById('slider').addEventListener('click', () => {
     return new Promise((resolve) => setTimeout(resolve, time));
   }
 
-  sleep(100).then(() => {
+  sleep(500).then(() => {
       document.location.reload(true) // Reloading page after the cookie switch and waiting 100 milisseconds to avoid errors
   });
 })
