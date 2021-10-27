@@ -32,7 +32,6 @@ let globalsDB = new mongoose.Schema({
 let Globals = mongoose.model('global', globalsDB)
 
 
-
 module.exports = function(app){
   app.post('/logout', (req, res) => {
     res.cookie('logged', '0', {
@@ -83,63 +82,68 @@ module.exports = function(app){
   })
 
   app.post('/register/signup', urlencodedParser, (req, res) => {
-      Accounts.find({username: req.body['user']}, (err, data) => {
-        if(err) res.redirect(`/error/:${err}`)
-        if(data.length >= 1){
-          console.log('This username is already being used.')
-          res.redirect('/register')
-        } else {
+      if(req.body['name'] == '') {
+        console.log('There was an error') // Put a popup after
+        res.redirect('/register')
+      } else {
+        Accounts.find({username: req.body['name']}, (err, data) => {
+          if(err) res.redirect(`/error/:${err}`)
+          if(data.length >= 1){
+            console.log('This username is already being used.')
+            res.redirect('/register')
+          } else {
 
-          Globals.findOne({}, (err, data) => { // Globals variables update
-            let position
-            if(!data){
-              position = '1'
-              let NewGlobal = new Globals({IDs: '1', lastId: '1'})
+            Globals.findOne({}, (err, data) => { // Globals variables update
+              let position
+              if(!data){
+                position = '1'
+                let NewGlobal = new Globals({IDs: '1', lastId: '1'})
 
-              NewGlobal.save((err, data) => {
+                NewGlobal.save((err, data) => {
+                  if(err){
+                    console.log(`There's an error, please try again ${err}.`)
+                    res.redirect('/register')
+                  }
+                })
+              } else {
+                let next = String(Number(data['lastId']) + 1)
+                position = next
+
+                Globals.deleteOne({lastId: data['lastId']}, (err, data) => {
+                  if(!err){
+                    let NewGlobal = new Globals({IDs: next, lastId: next})
+
+                    NewGlobal.save((err, data) => {
+                      if(err){
+                        console.log(`There's an error, please try again ${err}.`)
+                        res.redirect('/register')
+                      }
+                    })
+                  } else {
+                    res.redirect(`/error/:Error in deleting ${err}`)
+                  }
+                })
+              }
+              let NewData = new Accounts({username: req.body['name'], password: req.body['password'],
+                                              id: position})
+              NewData.save((err, data) => {
                 if(err){
                   console.log(`There's an error, please try again ${err}.`)
                   res.redirect('/register')
-                }
-              })
-            } else {
-              let next = String(Number(data['lastId']) + 1)
-              position = next
-
-              Globals.deleteOne({lastId: data['lastId']}, (err, data) => {
-                if(!err){
-                  let NewGlobal = new Globals({IDs: next, lastId: next})
-
-                  NewGlobal.save((err, data) => {
-                    if(err){
-                      console.log(`There's an error, please try again ${err}.`)
-                      res.redirect('/register')
-                    }
-                  })
                 } else {
-                  res.redirect(`/error/:Error in deleting ${err}`)
+                  // automatic login
+                  res.cookie('logged', '1', {
+                    httpOnly: true
+                  })
+                  res.cookie('user', data['username'], {
+                    httpOnly: true
+                  })
+                  res.redirect('/')
                 }
               })
-            }
-            let NewData = new Accounts({username: req.body['user'], password: req.body['password'],
-                                            id: position})
-            NewData.save((err, data) => {
-              if(err){
-                console.log(`There's an error, please try again ${err}.`)
-                res.redirect('/register')
-              } else {
-                // automatic login
-                res.cookie('logged', '1', {
-                  httpOnly: true
-                })
-                res.cookie('user', data['username'], {
-                  httpOnly: true
-                })
-                res.redirect('/')
-              }
             })
-          })
-        }
-    })
+          }
+        })
+      }
   })
 }

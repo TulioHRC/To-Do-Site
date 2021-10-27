@@ -11,7 +11,11 @@ I need an application that save to-do lists for me, and it can't be Notion, beca
 
 ## Log
 
-### v0.7.1
+### v0.7.2 (Login system error fix)
+- Register fix
+- Login fix
+
+### v0.7.1 (Minor updates)
 - Fix theme changing error (não está funcionando no deploy, talvez mudar a forma, só carregando o css do tema e não recarregando pagina)
 - Log out button css fix
 - Better home page css (less things in the screen)
