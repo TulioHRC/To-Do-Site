@@ -14,6 +14,9 @@ I need an application that save to-do lists for me, and it can't be Notion, beca
 ### v0.7.2 (Login system error fix)
 - Register fix
 - Login fix
+- Created QR code
+
+![frame](https://user-images.githubusercontent.com/62257920/139165554-8f2c37d5-5ae9-4dae-bdcf-71f12bf92022.png)
 
 ### v0.7.1 (Minor updates)
 - Fix theme changing error (não está funcionando no deploy, talvez mudar a forma, só carregando o css do tema e não recarregando pagina)
