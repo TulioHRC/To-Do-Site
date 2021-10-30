@@ -1,5 +1,6 @@
 const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
+const url = require('url');
 
 // Mongo Connection
 
@@ -68,7 +69,12 @@ module.exports = function(app){
         theme = req.cookies['theme']
       }
 
-      res.render('index', {data: data, logged: logged, user: user, theme: theme})
+      if(req.query.error){ // Error loading
+        res.render('index', {data: data, logged: logged, user: user, theme: theme, error: req.query.error})
+      } else {
+        res.render('index', {data: data, logged: logged, user: user, theme: theme})
+      }
+
     } else {
       logged = 1
       user = req.cookies['user']
@@ -88,39 +94,47 @@ module.exports = function(app){
   })
 
   app.post('/todoSave', urlencodedParser, (req, res)=>{
-      if(req.body.to_do == '') console.log('There was an error') // Put a popup after
-
-    if(req.cookies['user']){
-      let NewData = new To_dos({user: req.cookies['user'], to_do: req.body.to_do})
-      To_dos.find({user: req.cookies['user'], to_do: req.body.to_do}, (err, data)=>{
-        if (err) res.redirect(`/error/:${err}`)
-        if(data.length >= 1){
-          console.log('This to_do item is already used in your ip!')
-          res.redirect('/')
-        } else {
-          NewData.save((err, data) => {
-            if(err){
-              res.redirect(`/error/:${err}`)
+      if(req.body.to_do == ''){
+        console.log('There was an error') // Put a popup after
+        res.redirect(url.format({
+           pathname:"/",
+           query: {
+              "error": "To Do name can't be just ''!"
             }
-            res.redirect('/') // Reload
-          })
-        }
-      })
-    } else {
-      let alreadyTo_do, cookieContent
-      if(req.cookies['todos'] == undefined){
-        cookieContent = `${req.body.to_do}/0;`
+         }))
       } else {
-        alreadyTo_do = req.cookies['todos']
-        cookieContent = `${alreadyTo_do}${req.body.to_do}/0;`
+        if(req.cookies['user']){
+          let NewData = new To_dos({user: req.cookies['user'], to_do: req.body.to_do})
+          To_dos.find({user: req.cookies['user'], to_do: req.body.to_do}, (err, data)=>{
+            if (err) res.redirect(`/error/:${err}`)
+            if(data.length >= 1){
+              console.log('This to_do item is already used in your ip!')
+              res.redirect('/')
+            } else {
+              NewData.save((err, data) => {
+                if(err){
+                  res.redirect(`/error/:${err}`)
+                }
+                res.redirect('/') // Reload
+              })
+            }
+          })
+        } else {
+          let alreadyTo_do, cookieContent
+          if(req.cookies['todos'] == undefined){
+            cookieContent = `${req.body.to_do}/0;`
+          } else {
+            alreadyTo_do = req.cookies['todos']
+            cookieContent = `${alreadyTo_do}${req.body.to_do}/0;`
+          }
+
+          res.cookie('todos', cookieContent, {
+            httpOnly: true,
+          })
+
+          res.redirect('/') // Reload
+        }
       }
-
-      res.cookie('todos', cookieContent, {
-        httpOnly: true,
-      })
-
-      res.redirect('/') // Reload
-    }
   })
 
   app.post('/todoDelete/:todo', (req, res)=>{
@@ -142,8 +156,9 @@ module.exports = function(app){
       To_dos.find({user: req.cookies['user'], to_do: req.params.todo.replace(":", "")}).deleteOne((err, data)=>{
         if(err){
           res.redirect(`/error/:${err}`)
+        } else {
+          res.redirect('/')
         }
-        res.redirect('/')
       })
     }
   })
@@ -167,7 +182,15 @@ module.exports = function(app){
       res.redirect('/') // Reason to be lower than with an account
     } else {
       To_dos.findOneAndUpdate({user: req.cookies['user'], to_do: data[0]}, {user: req.cookies['user'], to_do:data[0], did:data[1]}, {upsert: true}, function(err, data) {
-        if (err) console.log(err)
+        if (err){
+          console.log('There was an error') // Put a popup after
+          res.redirect(url.format({
+             pathname:"/",
+             query: {
+                "error": "There was an error to update the data."
+              }
+           }))
+        }
       })
     }
   })

@@ -65,7 +65,12 @@ module.exports = function(app){
         })
         res.redirect('/')
       } else {
-        res.redirect(`/error/:Error in login ${err}`)
+        res.redirect(url.format({
+           pathname:"/login",
+           query: {
+              "error": `There was an error while logging ${err}!`
+            }
+         }))
       }
     })
   })
@@ -87,10 +92,22 @@ module.exports = function(app){
         res.redirect('/register')
       } else {
         Accounts.find({username: req.body['name']}, (err, data) => {
-          if(err) res.redirect(`/error/:${err}`)
+          if(err) {
+            res.redirect(url.format({
+               pathname:"/register",
+               query: {
+                  "error": `There was an error while registering...`
+                }
+             }))
+         }
           if(data.length >= 1){
             console.log('This username is already being used.')
-            res.redirect('/register')
+            res.redirect(url.format({
+               pathname:"/register",
+               query: {
+                  "error": "This username is already being used.!"
+                }
+             }))
           } else {
 
             Globals.findOne({}, (err, data) => { // Globals variables update
@@ -102,7 +119,7 @@ module.exports = function(app){
                 NewGlobal.save((err, data) => {
                   if(err){
                     console.log(`There's an error, please try again ${err}.`)
-                    res.redirect('/register')
+                    res.redirect(`/error/:${err}`)
                   }
                 })
               } else {
@@ -116,7 +133,7 @@ module.exports = function(app){
                     NewGlobal.save((err, data) => {
                       if(err){
                         console.log(`There's an error, please try again ${err}.`)
-                        res.redirect('/register')
+                        res.redirect(`/error/:${err}`)
                       }
                     })
                   } else {
@@ -129,7 +146,12 @@ module.exports = function(app){
               NewData.save((err, data) => {
                 if(err){
                   console.log(`There's an error, please try again ${err}.`)
-                  res.redirect('/register')
+                  res.redirect(url.format({
+                     pathname:"/register",
+                     query: {
+                        "error": `There was an error while registering!`
+                      }
+                   }))
                 } else {
                   // automatic login
                   res.cookie('logged', '1', {

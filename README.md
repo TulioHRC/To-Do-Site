@@ -11,6 +11,10 @@ I need an application that save to-do lists for me, and it can't be Notion, beca
 
 ## Log
 
+### v0.7.3 (Basic error context saving)
+- Query sending errors to redirect to the actual page with all the error data (message, text already put by user)
+- Pop up start of creation
+
 ### v0.7.2 (Login system error fix)
 - Register fix
 - Login fix

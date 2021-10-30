@@ -35,6 +35,12 @@
 
       <div class="to-do-form">
         <form action="/todoSave" method="post">
+
+          <!-- Popup --->
+          <div class="popup">
+            <span class="popuptext" id="errorPopup">To do can't be only ''!</span>
+          </div>
+
           <input type="text" id="new" name="to_do" minlength="3" placeholder="Enter new To Do">
           <input type="submit" id="bt" name="button" value="&#43;">
         </form>
@@ -69,7 +75,7 @@
         document.getElementById('logBt').style.color = 'white'
       } else {
         // Pop Up configuration
-        var popup = document.getElementById("myPopup");
+        let popup = document.getElementById("myPopup");
         popup.classList.toggle("show");
 
         popup.addEventListener('click', () => {
