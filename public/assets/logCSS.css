@@ -104,6 +104,59 @@ input, select {
 /*
 
 
+Popup style
+from: https://www.w3schools.com/howto/howto_js_popup.asp
+
+*/
+
+/* Popup container */
+.popup {
+  position: absolute;
+  font-size: 60px;
+  bottom: 15%;
+  left: 25%;
+  width: 64%;
+  display: inline-block;
+  cursor: pointer;
+}
+
+/* The actual popup (appears on top) */
+.popup .popuptext {
+  font-family: fantasy;
+  visibility: hidden;
+  width: 100%;
+  background-color: #f6f7a3;
+  color: black;
+  text-align: center;
+  border-radius: 20px;
+  padding: 12px 9px;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  margin-left: -80px;
+}
+
+/* Toggle this class when clicking on the popup container (hide and show the popup) */
+.popup .show {
+  visibility: visible;
+  -webkit-animation: fadeIn 1s;
+  animation: fadeIn 1s
+}
+
+/* Add animation (fade in the popup) */
+@-webkit-keyframes fadeIn {
+  from {opacity: 0;}
+  to {opacity: 1;}
+}
+
+@keyframes fadeIn {
+  from {opacity: 0;}
+  to {opacity:1 ;}
+}
+
+/*
+
+
 Slide Show style
 
 font: https://www.w3schools.com/howto/howto_js_slideshow.asp
@@ -354,5 +407,16 @@ Responsive part
   }
   .dotsDiv {
     width: 50%;
+  }
+
+  /* Popup part */
+  .popup {
+    font-size: 32px;
+    bottom: 15%;
+    left: 34%;
+    width: 32%;
+  }
+  .popup .popuptext {
+    margin-left: 0px;
   }
 }

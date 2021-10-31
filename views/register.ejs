@@ -49,6 +49,9 @@
       </div>
 
       <div class="data">
+        <div class="popup">
+          <span class="popuptext" id="errorPopup">This username can't be used, please chose another name.</span>
+        </div>
         <h2>Register</h2>
         <form action="/register/signup" method="post" class="login">
           <label>Username</label><br>
@@ -57,12 +60,21 @@
           <input class="txt" type="password" name="password" minlength="5" placeholder="Enter your password..."><br>
           <input type="submit" value="Sign up" id="submit"><br>
         </form>
-        <form action="/login" method="post" class="dont">
+        <form action="/login" method="get" class="dont">
           <input type="submit" value="Have account">
         </form>
       </div>
     </div>
 
     <script src="/assets/log.js"></script>
+    <script type="text/javascript">
+      if(<%= error %>){
+        let errorPop = document.getElementById('errorPopup')
+        errorPop.classList.toggle("show")
+        errorPop.addEventListener('click', () => {
+          errorPop.classList.toggle("show"); // Hide popup
+        })
+      }
+    </script>
   </body>
 </html>

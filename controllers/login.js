@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
 const bodyParser = require('body-parser')
+const url = require('url')
 
 // Body Parser
 
@@ -33,7 +34,7 @@ let Globals = mongoose.model('global', globalsDB)
 
 
 module.exports = function(app){
-  app.post('/logout', (req, res) => {
+  app.get('/logout', (req, res) => {
     res.cookie('logged', '0', {
       httpOnly: true
     })
@@ -43,7 +44,7 @@ module.exports = function(app){
     res.redirect('/')
   })
 
-  app.post('/login', (req, res) => {
+  app.get('/login', (req, res) => {
     // Theme Loading
 
     let theme = 'false'
@@ -51,7 +52,11 @@ module.exports = function(app){
       theme = req.cookies['theme']
     }
 
-    res.render('login', {theme: theme})
+    if(req.query.error){ // Error loading
+      res.render('login', {theme: theme, error: 1})
+    } else {
+      res.render('login', {theme: theme, error: 0})
+    }
   })
 
   app.post('/login/enter', urlencodedParser, (req, res) => {
@@ -68,14 +73,14 @@ module.exports = function(app){
         res.redirect(url.format({
            pathname:"/login",
            query: {
-              "error": `There was an error while logging ${err}!`
+              "error": `login_error`
             }
          }))
       }
     })
   })
 
-  app.post('/register', (req, res) => {
+  app.get('/register', (req, res) => {
     // Theme Loading
 
     let theme = 'false'
@@ -83,29 +88,31 @@ module.exports = function(app){
       theme = req.cookies['theme']
     }
 
-    res.render('register', {theme: theme})
+    if(req.query.error){ // Error loading
+      res.render('register', {theme: theme, error: 1})
+    } else {
+      res.render('register', {theme: theme, error: 0})
+    }
   })
 
   app.post('/register/signup', urlencodedParser, (req, res) => {
       if(req.body['name'] == '') {
-        console.log('There was an error') // Put a popup after
-        res.redirect('/register')
+        res.redirect(url.format({
+          pathname: "/register",
+          query: {
+            "error": "register_error"
+          }
+        }))
       } else {
         Accounts.find({username: req.body['name']}, (err, data) => {
           if(err) {
-            res.redirect(url.format({
-               pathname:"/register",
-               query: {
-                  "error": `There was an error while registering...`
-                }
-             }))
+            res.redirect(`/error/:${err}`)
          }
           if(data.length >= 1){
-            console.log('This username is already being used.')
             res.redirect(url.format({
                pathname:"/register",
                query: {
-                  "error": "This username is already being used.!"
+                  "error": "register_error"
                 }
              }))
           } else {
@@ -118,7 +125,6 @@ module.exports = function(app){
 
                 NewGlobal.save((err, data) => {
                   if(err){
-                    console.log(`There's an error, please try again ${err}.`)
                     res.redirect(`/error/:${err}`)
                   }
                 })
@@ -132,12 +138,11 @@ module.exports = function(app){
 
                     NewGlobal.save((err, data) => {
                       if(err){
-                        console.log(`There's an error, please try again ${err}.`)
                         res.redirect(`/error/:${err}`)
                       }
                     })
                   } else {
-                    res.redirect(`/error/:Error in deleting ${err}`)
+                    res.redirect(`/error/:Error in deleting Global ${err}`)
                   }
                 })
               }
@@ -145,13 +150,7 @@ module.exports = function(app){
                                               id: position})
               NewData.save((err, data) => {
                 if(err){
-                  console.log(`There's an error, please try again ${err}.`)
-                  res.redirect(url.format({
-                     pathname:"/register",
-                     query: {
-                        "error": `There was an error while registering!`
-                      }
-                   }))
+                  res.redirect(`/error/:Error in saving ${err}`)
                 } else {
                   // automatic login
                   res.cookie('logged', '1', {

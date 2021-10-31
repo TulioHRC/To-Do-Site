@@ -12,7 +12,7 @@
   </head>
   <body>
     <div class="wrapper">
-      <form id="login" action="/login" method="post">
+      <form id="login" action="/login" method="GET">
         <button id="logBt">Log in</button>
       </form>
       <% if(logged == 1){ %>
@@ -38,7 +38,7 @@
 
           <!-- Popup --->
           <div class="popup">
-            <span class="popuptext" id="errorPopup">To do can't be only ''!</span>
+            <span class="popuptext" id="errorPopup">To do needs at least 3 chars!</span>
           </div>
 
           <input type="text" id="new" name="to_do" minlength="3" placeholder="Enter new To Do">
@@ -74,12 +74,24 @@
         document.getElementById('logBt').style.backgroundColor = 'indianred'
         document.getElementById('logBt').style.color = 'white'
       } else {
-        // Pop Up configuration
-        let popup = document.getElementById("myPopup");
-        popup.classList.toggle("show");
+        if(<%= error %>){
+          console.log('Error Popup')
+        } else {
+          // Pop Up configuration
+          let popup = document.getElementById("myPopup");
+          popup.classList.toggle("show");
 
-        popup.addEventListener('click', () => {
-          popup.classList.toggle("show"); // Hide popup
+          popup.addEventListener('click', () => {
+            popup.classList.toggle("show"); // Hide popup
+          })
+        }
+      }
+
+      if(<%= error %>){
+        let errorPop = document.getElementById('errorPopup')
+        errorPop.classList.toggle("show")
+        errorPop.addEventListener('click', () => {
+          errorPop.classList.toggle("show"); // Hide popup
         })
       }
     </script>

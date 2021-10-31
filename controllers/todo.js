@@ -1,6 +1,6 @@
 const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
-const url = require('url');
+const url = require('url')
 
 // Mongo Connection
 
@@ -70,9 +70,9 @@ module.exports = function(app){
       }
 
       if(req.query.error){ // Error loading
-        res.render('index', {data: data, logged: logged, user: user, theme: theme, error: req.query.error})
+        res.render('index', {data: data, logged: logged, user: user, theme: theme, error: 1})
       } else {
-        res.render('index', {data: data, logged: logged, user: user, theme: theme})
+        res.render('index', {data: data, logged: logged, user: user, theme: theme, error: 0})
       }
 
     } else {
@@ -88,7 +88,13 @@ module.exports = function(app){
 
       To_dos.find({user: req.cookies['user']}, (err, data)=>{
           if (err) res.redirect(`/error/:${err}`)
-          else res.render('index', {data: data, logged: logged, user: user, theme: theme})
+          else {
+            if(req.query.error){ // Error loading
+              res.render('index', {data: data, logged: logged, user: user, theme: theme, error: 1})
+            } else {
+              res.render('index', {data: data, logged: logged, user: user, theme: theme, error: 0})
+            }
+          }
       })
     }
   })
@@ -99,7 +105,7 @@ module.exports = function(app){
         res.redirect(url.format({
            pathname:"/",
            query: {
-              "error": "To Do name can't be just ''!"
+              "error": "Error_name"
             }
          }))
       } else {
@@ -184,12 +190,7 @@ module.exports = function(app){
       To_dos.findOneAndUpdate({user: req.cookies['user'], to_do: data[0]}, {user: req.cookies['user'], to_do:data[0], did:data[1]}, {upsert: true}, function(err, data) {
         if (err){
           console.log('There was an error') // Put a popup after
-          res.redirect(url.format({
-             pathname:"/",
-             query: {
-                "error": "There was an error to update the data."
-              }
-           }))
+           res.redirect(`/error/:There was an error to update the data. ${err}`)
         }
       })
     }

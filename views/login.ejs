@@ -49,6 +49,9 @@
       </div>
 
       <div class="data">
+        <div class="popup">
+          <span class="popuptext" id="errorPopup">The user informations are wrong!</span>
+        </div>
         <h2>Login</h2>
         <form action="/login/enter" method="post" class="login">
           <label>Username</label><br>
@@ -57,12 +60,21 @@
           <input class="txt" type="password" name="password" minlength="5" placeholder="Enter your password..."><br>
           <input type="submit" value="Sign in" id="submit"><br>
         </form>
-        <form action="/register" method="post" class="dont">
+        <form action="/register" method="get" class="dont">
           <input type="submit" value="Create account">
         </form>
       </div>
     </div>
 
     <script src="/assets/log.js"></script>
+    <script type="text/javascript">
+      if(<%= error %>){
+        let errorPop = document.getElementById('errorPopup')
+        errorPop.classList.toggle("show")
+        errorPop.addEventListener('click', () => {
+          errorPop.classList.toggle("show"); // Hide popup
+        })
+      }
+    </script>
   </body>
 </html>
