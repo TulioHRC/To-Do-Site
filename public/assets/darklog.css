@@ -120,13 +120,11 @@ from: https://www.w3schools.com/howto/howto_js_popup.asp
   cursor: pointer;
 }
 
-/* The actual popup (appears on top) */
+/* The actual error popup */
 .popup .popuptext {
   font-family: fantasy;
   visibility: hidden;
   width: 100%;
-  background-color: #f6f7a3;
-  color: black;
   text-align: center;
   border-radius: 20px;
   padding: 12px 9px;
@@ -134,6 +132,8 @@ from: https://www.w3schools.com/howto/howto_js_popup.asp
   z-index: 1;
   bottom: 125%;
   margin-left: -80px;
+  color: white;
+  background-color: orangered;
 }
 
 /* Toggle this class when clicking on the popup container (hide and show the popup) */
@@ -413,8 +413,8 @@ Responsive part
   .popup {
     font-size: 32px;
     bottom: 15%;
-    left: 34%;
-    width: 32%;
+    left: 25%;
+    width: 50%;
   }
   .popup .popuptext {
     margin-left: 0px;

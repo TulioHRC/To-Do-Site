@@ -11,6 +11,11 @@ I need an application that save to-do lists for me, and it can't be Notion, beca
 
 ## Log
 
+### v0.8 (Popup full style)
+- Popup style
+- Popup style responsive
+- To do update fix error
+
 ### v0.7.4 (Error Popup)
 - Error Popup
 

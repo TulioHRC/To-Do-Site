@@ -63,16 +63,20 @@ module.exports = function(app){
       })
 
       // Theme Loading
-
       let theme = 'false'
       if(req.cookies['theme'] != undefined){ // Theme cookie if not defined
         theme = req.cookies['theme']
       }
 
+      // Popup already showed
+      if(req.query.pop){
+        pop = 1
+      } else pop = 0
+
       if(req.query.error){ // Error loading
-        res.render('index', {data: data, logged: logged, user: user, theme: theme, error: 1})
+        res.render('index', {data: data, pop: pop, logged: logged, user: user, theme: theme, error: 1})
       } else {
-        res.render('index', {data: data, logged: logged, user: user, theme: theme, error: 0})
+        res.render('index', {data: data, pop: pop, logged: logged, user: user, theme: theme, error: 0})
       }
 
     } else {
@@ -80,19 +84,23 @@ module.exports = function(app){
       user = req.cookies['user']
 
       // Theme Loading
-
       let theme = 'false'
       if(req.cookies['theme'] != undefined){ // Theme cookie if not defined
         theme = req.cookies['theme']
       }
 
+      // Popup already showed
+      if(req.query.pop){
+        pop = 1
+      } else pop = 0
+
       To_dos.find({user: req.cookies['user']}, (err, data)=>{
           if (err) res.redirect(`/error/:${err}`)
           else {
             if(req.query.error){ // Error loading
-              res.render('index', {data: data, logged: logged, user: user, theme: theme, error: 1})
+              res.render('index', {data: data, pop: pop, logged: logged, user: user, theme: theme, error: 1})
             } else {
-              res.render('index', {data: data, logged: logged, user: user, theme: theme, error: 0})
+              res.render('index', {data: data, pop: pop, logged: logged, user: user, theme: theme, error: 0})
             }
           }
       })
@@ -115,13 +123,12 @@ module.exports = function(app){
             if (err) res.redirect(`/error/:${err}`)
             if(data.length >= 1){
               console.log('This to_do item is already used in your ip!')
-              res.redirect('/')
+              res.redirect('/') // Just realoads the site
             } else {
               NewData.save((err, data) => {
                 if(err){
                   res.redirect(`/error/:${err}`)
-                }
-                res.redirect('/') // Reload
+                } else res.redirect('/') // Reload
               })
             }
           })
@@ -138,7 +145,12 @@ module.exports = function(app){
             httpOnly: true,
           })
 
-          res.redirect('/') // Reload
+          res.redirect(url.format({ // Reload without the popup
+             pathname:"/",
+             query: {
+                "pop": "1"
+              }
+           }))
         }
       }
   })
@@ -157,7 +169,12 @@ module.exports = function(app){
           })
         }
       }
-      res.redirect('/')
+      res.redirect(url.format({ // Reload without the popup
+         pathname:"/",
+         query: {
+            "pop": "1"
+          }
+       }))
     } else {
       To_dos.find({user: req.cookies['user'], to_do: req.params.todo.replace(":", "")}).deleteOne((err, data)=>{
         if(err){
@@ -176,16 +193,23 @@ module.exports = function(app){
       for (let i = 0; i < cookie.length; i++) {
         let each = cookie[i].split('/')
         if(each[0] == data[0]){
-          if(data[1]) data[1] = 1
-          else data[1] = 0
+          console.log(data)
+          if(data[1] == 'true') data[1] = 1 // True to 1
+          else data[1] = 0 // False to 0
           each[1] = data[1]
           cookie[i] = each.join('/')
+          console.log(data)
           res.cookie('todos', cookie.join(';').concat(';'), {
             httpOnly: true,
           })
         }
       }
-      res.redirect('/') // Reason to be lower than with an account
+      res.redirect(url.format({ // Reason to be lower than with an account
+         pathname:"/",
+         query: {
+            "pop": "1"
+          }
+       }))
     } else {
       To_dos.findOneAndUpdate({user: req.cookies['user'], to_do: data[0]}, {user: req.cookies['user'], to_do:data[0], did:data[1]}, {upsert: true}, function(err, data) {
         if (err){
