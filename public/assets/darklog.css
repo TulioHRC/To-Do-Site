@@ -285,7 +285,8 @@ body {
 }
 
 .data h2 {
-  font-size: 60px;
+  font-size: 100px;
+  margin-bottom: 50px;
 }
 
 .slides img { /* Centering an image */
@@ -320,6 +321,18 @@ body {
   border-radius: 40px;
   border: 0;
   background-color: pink;
+  color: white;
+}
+
+.login #submitR {
+  font-size: 64px;
+  cursor: pointer;
+  text-align: center;
+  padding: 30px 60px;
+  margin: 18px 0;
+  border-radius: 40px;
+  border: 0;
+  background-color: red;
   color: white;
 }
 
@@ -368,7 +381,8 @@ Responsive part
     width: 46%;
   }
   .data h2 {
-    font-size: 32px
+    font-size: 52px;
+    margin-bottom: 20px;
   }
   .login label {
     font-size: 24px;
@@ -381,6 +395,11 @@ Responsive part
   }
 
   .login #submit {
+    font-size: 24px;
+    padding: 15px 30px;
+    margin: 18px 0;
+  }
+  .login #submitR {
     font-size: 24px;
     padding: 15px 30px;
     margin: 18px 0;
@@ -412,9 +431,9 @@ Responsive part
   /* Popup part */
   .popup {
     font-size: 32px;
-    bottom: 15%;
-    left: 25%;
-    width: 50%;
+    bottom: 20%;
+    left: 15%;
+    width: 70%;
   }
   .popup .popuptext {
     margin-left: 0px;

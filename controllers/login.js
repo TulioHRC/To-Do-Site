@@ -34,7 +34,9 @@ let Globals = mongoose.model('global', globalsDB)
 
 
 module.exports = function(app){
-  app.get('/logout', (req, res) => {
+
+  app.get('/logout', (req, res) => { // User logout
+    // Cookie changing
     res.cookie('logged', '0', {
       httpOnly: true
     })
@@ -44,9 +46,8 @@ module.exports = function(app){
     res.redirect('/')
   })
 
-  app.get('/login', (req, res) => {
+  app.get('/login', (req, res) => { // User login page
     // Theme Loading
-
     let theme = 'false'
     if(req.cookies['theme'] != undefined){ // Theme cookie if not defined
       theme = req.cookies['theme']
@@ -59,15 +60,17 @@ module.exports = function(app){
     }
   })
 
-  app.post('/login/enter', urlencodedParser, (req, res) => {
+  app.post('/login/enter', urlencodedParser, (req, res) => { // Log in
     Accounts.findOne({username: req.body['name'], password: req.body['password']}, (err, data) => {
       if(data){
+        // cookie save
         res.cookie('logged', '1', {
           httpOnly: true
         })
         res.cookie('user', data['username'], {
           httpOnly: true
         })
+
         res.redirect('/')
       } else {
         res.redirect(url.format({
@@ -82,7 +85,6 @@ module.exports = function(app){
 
   app.get('/register', (req, res) => {
     // Theme Loading
-
     let theme = 'false'
     if(req.cookies['theme'] != undefined){ // Theme cookie if not defined
       theme = req.cookies['theme']
@@ -95,8 +97,8 @@ module.exports = function(app){
     }
   })
 
-  app.post('/register/signup', urlencodedParser, (req, res) => {
-      if(req.body['name'] == '') {
+  app.post('/register/signup', urlencodedParser, (req, res) => { // Account creation
+      if(req.body['name'] == '') { // If username == ''
         res.redirect(url.format({
           pathname: "/register",
           query: {
@@ -109,7 +111,7 @@ module.exports = function(app){
             res.redirect(`/error/:${err}`)
          }
           if(data.length >= 1){
-            res.redirect(url.format({
+            res.redirect(url.format({ // If name is already being used
                pathname:"/register",
                query: {
                   "error": "register_error"
@@ -117,7 +119,7 @@ module.exports = function(app){
              }))
           } else {
 
-            Globals.findOne({}, (err, data) => { // Globals variables update
+            Globals.findOne({}, (err, data) => { // Globals variables update, user id saving
               let position
               if(!data){
                 position = '1'
@@ -136,7 +138,7 @@ module.exports = function(app){
                   if(!err){
                     let NewGlobal = new Globals({IDs: next, lastId: next})
 
-                    NewGlobal.save((err, data) => {
+                    NewGlobal.save((err, data) => { // Global save
                       if(err){
                         res.redirect(`/error/:${err}`)
                       }
@@ -148,7 +150,7 @@ module.exports = function(app){
               }
               let NewData = new Accounts({username: req.body['name'], password: req.body['password'],
                                               id: position})
-              NewData.save((err, data) => {
+              NewData.save((err, data) => { // User save
                 if(err){
                   res.redirect(`/error/:Error in saving ${err}`)
                 } else {

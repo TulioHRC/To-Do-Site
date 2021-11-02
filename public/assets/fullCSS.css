@@ -411,10 +411,12 @@ body {
 
 #welcome {
   position: absolute;
-  left: 5%;
+  left: 2%;
   top: 7%;
-  font-size: 28px;
-  width: 20%;
+  font-family: cursive;
+  text-align: center;
+  font-size: 42px;
+  width: 22.5%;
 }
 
 h1 {

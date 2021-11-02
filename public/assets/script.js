@@ -1,9 +1,9 @@
-// Checkboxes
-
 let todos = document.getElementsByTagName('c')
 let buts = document.getElementsByClassName('delete')
 let checks = document.getElementsByClassName('check')
 let lis = document.getElementsByTagName('li')
+
+// Checkboxes functions
 
 function save(i){ /* Update in the database */
   if(checks[i].checked == true){
@@ -17,6 +17,8 @@ function save(i){ /* Update in the database */
     body: ''
   })
 }
+
+// Delete functions
 
 for(let i=0; i<todos.length; i++){
   buts[i].addEventListener('click', ()=>{
@@ -34,7 +36,7 @@ for(let i=0; i<todos.length; i++){
     checks[i].addEventListener('click', () => save(i))
   }
 
-// Themes
+// Themes functions
 
 document.getElementById('slider').addEventListener('click', () => {
   fetch(`/theme/:${document.getElementById('slider').checked}`, {

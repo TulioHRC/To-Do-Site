@@ -5,7 +5,6 @@ document.getElementById('title').addEventListener('click', () => {
 
 // SLIDES PART
 
-
 var slideIndex = 1;
 showSlides(slideIndex);
 

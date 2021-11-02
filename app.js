@@ -12,6 +12,7 @@ app.set('view engine', 'ejs') // View engine setting
 app.use(express.static(__dirname + '/public')) // Static folder definition
 app.use(cookieParser()) // Cookie parser set up
 
+// Controllers load
 controllerTodo(app)
 controllerLogin(app)
 controllerErrors(app)

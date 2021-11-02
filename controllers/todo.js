@@ -37,7 +37,6 @@ let urlencodedParser = bodyParser.urlencoded({extended:false})
 module.exports = function(app){
   app.get('/', (req, res)=>{
     // User Checking
-
     if(!req.cookies['user']){ // Without account mode
       logged = 0
       user = ''
@@ -79,7 +78,7 @@ module.exports = function(app){
         res.render('index', {data: data, pop: pop, logged: logged, user: user, theme: theme, error: 0})
       }
 
-    } else {
+    } else { // Logged mode
       logged = 1
       user = req.cookies['user']
 
@@ -89,27 +88,21 @@ module.exports = function(app){
         theme = req.cookies['theme']
       }
 
-      // Popup already showed
-      if(req.query.pop){
-        pop = 1
-      } else pop = 0
-
       To_dos.find({user: req.cookies['user']}, (err, data)=>{
           if (err) res.redirect(`/error/:${err}`)
           else {
             if(req.query.error){ // Error loading
-              res.render('index', {data: data, pop: pop, logged: logged, user: user, theme: theme, error: 1})
+              res.render('index', {data: data, pop: 1, logged: logged, user: user, theme: theme, error: 1})
             } else {
-              res.render('index', {data: data, pop: pop, logged: logged, user: user, theme: theme, error: 0})
+              res.render('index', {data: data, pop: 1, logged: logged, user: user, theme: theme, error: 0})
             }
           }
       })
     }
   })
 
-  app.post('/todoSave', urlencodedParser, (req, res)=>{
-      if(req.body.to_do == ''){
-        console.log('There was an error') // Put a popup after
+  app.post('/todoSave', urlencodedParser, (req, res)=>{ // To_Do cration
+      if(req.body.to_do == ''){ // Error load
         res.redirect(url.format({
            pathname:"/",
            query: {
@@ -117,22 +110,21 @@ module.exports = function(app){
             }
          }))
       } else {
-        if(req.cookies['user']){
+        if(req.cookies['user']){ // Logged
           let NewData = new To_dos({user: req.cookies['user'], to_do: req.body.to_do})
           To_dos.find({user: req.cookies['user'], to_do: req.body.to_do}, (err, data)=>{
             if (err) res.redirect(`/error/:${err}`)
-            if(data.length >= 1){
-              console.log('This to_do item is already used in your ip!')
-              res.redirect('/') // Just realoads the site
+            if(data.length >= 1){ // If the to_do is already saved
+              res.redirect('/')
             } else {
-              NewData.save((err, data) => {
+              NewData.save((err, data) => { // Real save
                 if(err){
                   res.redirect(`/error/:${err}`)
                 } else res.redirect('/') // Reload
               })
             }
           })
-        } else {
+        } else { // Not logged
           let alreadyTo_do, cookieContent
           if(req.cookies['todos'] == undefined){
             cookieContent = `${req.body.to_do}/0;`
@@ -155,8 +147,8 @@ module.exports = function(app){
       }
   })
 
-  app.post('/todoDelete/:todo', (req, res)=>{
-    if(!req.cookies['user']){
+  app.post('/todoDelete/:todo', (req, res)=>{ // Delete
+    if(!req.cookies['user']){ // Not logged
       data = req.cookies['todos'].split(';').slice(0, -1)
       for (let i = 0; i < data.length; i++) {
         let each = data[i].split('/')
@@ -175,7 +167,7 @@ module.exports = function(app){
             "pop": "1"
           }
        }))
-    } else {
+    } else { // Logged
       To_dos.find({user: req.cookies['user'], to_do: req.params.todo.replace(":", "")}).deleteOne((err, data)=>{
         if(err){
           res.redirect(`/error/:${err}`)
@@ -186,19 +178,17 @@ module.exports = function(app){
     }
   })
 
-  app.post('/todoUpdate/:data', (req, res)=>{
+  app.post('/todoUpdate/:data', (req, res)=>{ // Update
     data = req.params.data.replace(':', "").split('-')
-    if(!req.cookies['user']){
+    if(!req.cookies['user']){ // Not logged
       cookie = req.cookies['todos'].split(';').slice(0, -1)
       for (let i = 0; i < cookie.length; i++) {
         let each = cookie[i].split('/')
         if(each[0] == data[0]){
-          console.log(data)
           if(data[1] == 'true') data[1] = 1 // True to 1
           else data[1] = 0 // False to 0
           each[1] = data[1]
           cookie[i] = each.join('/')
-          console.log(data)
           res.cookie('todos', cookie.join(';').concat(';'), {
             httpOnly: true,
           })
@@ -210,10 +200,9 @@ module.exports = function(app){
             "pop": "1"
           }
        }))
-    } else {
+    } else { // Logged
       To_dos.findOneAndUpdate({user: req.cookies['user'], to_do: data[0]}, {user: req.cookies['user'], to_do:data[0], did:data[1]}, {upsert: true}, function(err, data) {
         if (err){
-          console.log('There was an error') // Put a popup after
            res.redirect(`/error/:There was an error to update the data. ${err}`)
         }
       })
