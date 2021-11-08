@@ -11,6 +11,10 @@ I need an application that save to-do lists for me, and it can't be Notion, beca
 
 ## Log
 
+### v0.8.2 (Error page style)
+- CSS to error page
+- Theme in the error page
+
 ### v0.8.1 (Little upgrades)
 - CSS upgrades
 - Commentaries in the code

@@ -5,7 +5,15 @@
     <title>ERROR</title>
     <style media="screen">
       a {
-        font-size: 104px;
+        font-size: 64px;
+        font-family: arial;
+        text-align: center;
+      }
+      h1 {
+        font-size: 46px;
+      }
+      p {
+        font-size: 42px;
       }
     </style>
   </head>
@@ -16,4 +24,12 @@
     <p>Error: </p>
     <%= data %>
   </body>
+  <script type="text/javascript">
+    if(<%= theme == "true" %>){
+      document.getElementsByTagName('body')[0].style.backgroundColor = "black"
+      document.getElementsByTagName('a')[0].style.color = "blue"
+      document.getElementsByTagName('h1')[0].style.color = "white"
+      document.getElementsByTagName('p')[0].style.color = "white"
+    }
+  </script>
 </html>
