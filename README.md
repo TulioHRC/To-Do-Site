@@ -13,6 +13,7 @@ I need an application that save to-do lists for me, and it can't be Notion, beca
 
 ### v0.8.3.1 (HotFix)
 - Fixing some errors (deleted the async functions in the url callbacks, just keep in the delete JS function)
+- Autofocus in the new ToDo input
 
 ### v0.8.3 (Deleting fix)
 - Deleting were sometimes reloading incorrectly the window, so the itens continued the same, so I used async programming in some places to avoid this type of error.
