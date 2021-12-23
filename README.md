@@ -11,6 +11,9 @@ I need an application that save to-do lists for me, and it can't be Notion, beca
 
 ## Log
 
+### v0.8.3 (Deleting fix)
+- Deleting were sometimes reloading incorrectly the window, so the itens continued the same, so I used async programming in some places to avoid this type of error.
+
 ### v0.8.2 (Error page style)
 - CSS to error page
 - Theme in the error page
