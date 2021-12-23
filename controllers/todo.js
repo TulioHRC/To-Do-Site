@@ -135,14 +135,14 @@ module.exports = function(app){
 
           res.cookie('todos', cookieContent, {
             httpOnly: true,
+          }, () => {
+            res.redirect(url.format({ // Reload without the popup
+               pathname:"/",
+               query: {
+                  "pop": "1"
+                }
+             }))
           })
-
-          res.redirect(url.format({ // Reload without the popup
-             pathname:"/",
-             query: {
-                "pop": "1"
-              }
-           }))
         }
       }
   })
@@ -158,15 +158,17 @@ module.exports = function(app){
           if(data.length > 1) data = data.concat(';')
           res.cookie('todos', data, {
             httpOnly: true,
+          }, () => {
+            // Callback function to avoid erros
+            res.redirect(url.format({ // Reload without the popup
+               pathname:"/",
+               query: {
+                  "pop": "1"
+                }
+             }))
           })
         }
       }
-      res.redirect(url.format({ // Reload without the popup
-         pathname:"/",
-         query: {
-            "pop": "1"
-          }
-       }))
     } else { // Logged
       To_dos.find({user: req.cookies['user'], to_do: req.params.todo.replace(":", "")}).deleteOne((err, data)=>{
         if(err){
@@ -191,15 +193,16 @@ module.exports = function(app){
           cookie[i] = each.join('/')
           res.cookie('todos', cookie.join(';').concat(';'), {
             httpOnly: true,
+          }, () => { // Callback to avoid errors
+            res.redirect(url.format({ // Reason to be lower than with an account
+               pathname:"/",
+               query: {
+                  "pop": "1"
+                }
+             }))
           })
         }
       }
-      res.redirect(url.format({ // Reason to be lower than with an account
-         pathname:"/",
-         query: {
-            "pop": "1"
-          }
-       }))
     } else { // Logged
       To_dos.findOneAndUpdate({user: req.cookies['user'], to_do: data[0]}, {user: req.cookies['user'], to_do:data[0], did:data[1]}, {upsert: true}, function(err, data) {
         if (err){
@@ -211,7 +214,8 @@ module.exports = function(app){
 
   app.post('/theme/:data', (req, res) => { // Changing theme
     data = req.params.data.replace(':', '')
-    res.cookie('theme', data, {httpOnly: true})
-    res.redirect('/')
+    res.cookie('theme', data, {httpOnly: true}, () => {
+      res.redirect('/') // Callback to avoid errors
+    })
   })
 }

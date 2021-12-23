@@ -25,9 +25,9 @@ for(let i=0; i<todos.length; i++){
       fetch(`/todoDelete/:${todos[i].textContent}`, {
           method: 'POST',
           body:  ''
+      }).then(() => {
+        document.location.reload(true) // Callback function to avoid errors
       })
-
-      document.location.reload(true)
     })
 
     if(checks[i].checked == true){ // Initial line-through
